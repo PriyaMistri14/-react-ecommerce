@@ -1,0 +1,28 @@
+.background-img
+{
+  width: 100%;
+  height: 100%;
+  transform: scale(1.1);
+  transition: transform 6s cubic-bezier(0.25,0.45,0.45,0.95);
+  background-size: cover;
+  background-position: center;
+
+}
+
+.category-body-container{
+  opacity: 0.9;
+  height: 90px;
+  padding: 0 25px;
+  color: white;
+  border: 1px solid white;
+
+  margin-top: 90px;
+  margin-bottom: 90px;
+  margin-right: 150px;
+  margin-left: 90px;
+
+}
+
+.category-body-container:hover{
+  transform: scale(1.05);
+}
