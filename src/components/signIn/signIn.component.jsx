@@ -1,29 +1,30 @@
 
 import { useState } from "react"
 
-import { createUserAuthWithEmailAndPassword, createUserDocumentFromAuth } from "../../utils/firebase/firebase.util"
+import { createUserAuthWithEmailAndPassword, createUserDocumentFromAuth, signInAuthWithEmailAndPassword } from "../../utils/firebase/firebase.util"
 
 
 import FormInput from "../formInput/formInput.component"
 
 import ButtonComponent from "../button/button.component"
 
-
 import { UserContext } from "../../contexts/user.context"
 import { useContext } from "react"
 
 
 
-const SignUp = () => {
+
+const SignIn = () => {
     const defaultFormField = {
-        displayName: '',
+
         email: '',
-        password: '',
-        confirmPassword: ''
+        password: ''
+
     }
     const [formField, setFormField] = useState(defaultFormField)
 
     const {setCurrentUser} = useContext(UserContext)
+
 
     // const { displayName, email, password, confirmPassword } = { formField }
 
@@ -45,36 +46,33 @@ const SignUp = () => {
         event.preventDefault()
         // alert(event.target )
         console.log(formField);
-        const { displayName, email, password, confirmPassword } = formField
-        console.log(displayName);
+        const { email, password } = formField
 
-        if (password != confirmPassword) {
-            alert("password and confirm password not match!")
-            return
-        }
+
+
         try {
-
-            const response = await createUserAuthWithEmailAndPassword(email, password)
-
-            const res = await createUserDocumentFromAuth(response, { displayName })
-            resetFormField()
-            setCurrentUser(res.user)
+            const res = await signInAuthWithEmailAndPassword(email, password)
+            console.log("//////res",res);
+           setCurrentUser(res.user)
 
 
         }
         catch (error) {
-            if (error.code == 'auth/email-already-in-use') {
-                alert("User already exits!")
+            if(error.code == 'auth/wrong-password'){
+
+                alert("Invalid user or password!!")
+            }
+            else  if(error.code == 'auth/user-not-found'){
+
+                alert("No user found for this email , please sign up first!!")
+            }
+            else{
+                alert("There is an error in  sign in of user!")
             }
 
-            if (error.code == 'auth/weak-password') {
-                alert('Password should be at least 6 characters')
 
-            }
-            else {
-                alert("There is an error in creation of user!")
-                console.log("There is an error in creation of user!", error.message)
-            }
+            console.log("There is an error in  sign in of user!", error.message)
+
 
 
 
@@ -87,17 +85,12 @@ const SignUp = () => {
 
 
 
-    const { displayName, email, password, confirmPassword } = { formField }
+    const { email, password } = { formField }
 
     return (
 
         <div><h1>Sign Up using your email and password</h1>
             <form onSubmit={onSubmitHandler}>
-                <FormInput label='Display Name:'
-                    type='text'
-                    required name='displayName'
-                    value={displayName}
-                    onChange={onChangeHandler} />
 
 
 
@@ -119,12 +112,6 @@ const SignUp = () => {
 
 
 
-                <FormInput label='Confirm Password:'
-                    type='text'
-                    required name='confirmPassword'
-                    value={confirmPassword}
-                    onChange={onChangeHandler} />
-
 
 
                 {/* <label>Display Name:</label>
@@ -144,7 +131,7 @@ const SignUp = () => {
                 {/* <button type="submit"> Sign Up</button><br /><br /> */}
 
 
-                <ButtonComponent children='Sign Up' type='submit' />
+                <ButtonComponent children='Sign In' type='submit'/>
 
 
 
@@ -159,4 +146,4 @@ const SignUp = () => {
 }
 
 
-export default SignUp
+export default SignIn
