@@ -12,12 +12,15 @@ import Navigation from './routes/navigation/navigation.component';
 import Auth from './routes/sign_in/sign_in.component';
 
 
+import Shop from './routes/shop/shop.component';
 
 
 
-const Shop = () => {
-  return <h1>I am shop page!</h1>
-}
+
+
+// const Shop = () => {
+//   return <h1>I am shop page!</h1>
+// }
 
 
 const App = () => {

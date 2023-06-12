@@ -1,2 +1,12 @@
+.button-container{
+background-color: black;
+color: white;
+border: 1px solid black;
+border-radius: 7px;
+padding: 7px;
 
+}
 
+.button-container:hover{
+    transform: scale(1.05);
+}

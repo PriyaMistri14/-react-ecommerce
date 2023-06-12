@@ -12,6 +12,16 @@ import { useContext } from "react";
 import { signOutUser } from "../../utils/firebase/firebase.util";
 
 
+import CardIcon from "../../components/card-icon/card-icon.component";
+
+import CardDrpdown from "../../components/card-dropdown/card-dropdown.component";
+
+
+import { CartContext } from "../../contexts/cart.context";
+
+
+
+
 // import { Link } from "react-router-dom";
 
 const Navigation = () => {
@@ -19,11 +29,13 @@ const Navigation = () => {
     const { currentUser, setCurrentUser } = useContext(UserContext)
     console.log("current user:", currentUser);
 
+    const {isCartOpen, setIsCartOpen} = useContext(CartContext)
+ 
 
-    const onSignOutHAndler = async ()=>{
-        const res= await signOutUser()
+    const onSignOutHAndler = async () => {
+        const res = await signOutUser()
         console.log("after sign out", res);
-        setCurrentUser(null)
+        // setCurrentUser(null)       //centralize this using onAuthchange if remove onAuthchange then uncomment this line 
     }
 
 
@@ -45,7 +57,10 @@ const Navigation = () => {
 
 
 
+                    <CardIcon />
                 </div>
+                { isCartOpen && <CardDrpdown />}
+                {/* <CardDrpdown /> */}
             </div>
 
             <Outlet />

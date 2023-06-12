@@ -48,7 +48,7 @@ const SignUp = () => {
         const { displayName, email, password, confirmPassword } = formField
         console.log(displayName);
 
-        if (password != confirmPassword) {
+        if (password !== confirmPassword) {
             alert("password and confirm password not match!")
             return
         }
@@ -58,16 +58,17 @@ const SignUp = () => {
 
             const res = await createUserDocumentFromAuth(response, { displayName })
             resetFormField()
-            setCurrentUser(res.user)
+            console.log(".............................................current user", response.user, response);
+            // setCurrentUser(response.user)   //centralize this using onAuthchange if remove onAuthchange then uncomment this line
 
 
         }
         catch (error) {
-            if (error.code == 'auth/email-already-in-use') {
+            if (error.code === 'auth/email-already-in-use') {
                 alert("User already exits!")
             }
 
-            if (error.code == 'auth/weak-password') {
+            if (error.code === 'auth/weak-password') {
                 alert('Password should be at least 6 characters')
 
             }
@@ -91,7 +92,7 @@ const SignUp = () => {
 
     return (
 
-        <div><h1>Sign Up using your email and password</h1>
+        <div><h2>Sign Up using your email and password</h2>
             <form onSubmit={onSubmitHandler}>
                 <FormInput label='Display Name:'
                     type='text'
@@ -110,7 +111,7 @@ const SignUp = () => {
 
 
                 <FormInput label='Password: '
-                    type='text'
+                    type='password'
                     required name='password'
                     value={password}
                     onChange={onChangeHandler} />
@@ -120,7 +121,7 @@ const SignUp = () => {
 
 
                 <FormInput label='Confirm Password:'
-                    type='text'
+                    type='password'
                     required name='confirmPassword'
                     value={confirmPassword}
                     onChange={onChangeHandler} />

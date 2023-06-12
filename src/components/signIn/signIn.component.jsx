@@ -1,7 +1,7 @@
 
 import { useState } from "react"
 
-import { createUserAuthWithEmailAndPassword, createUserDocumentFromAuth, signInAuthWithEmailAndPassword } from "../../utils/firebase/firebase.util"
+import {  createUserDocumentFromAuth, signInAuthWithEmailAndPassword } from "../../utils/firebase/firebase.util"
 
 
 import FormInput from "../formInput/formInput.component"
@@ -10,6 +10,13 @@ import ButtonComponent from "../button/button.component"
 
 import { UserContext } from "../../contexts/user.context"
 import { useContext } from "react"
+
+
+import './signIn.styles.css'
+
+//  import { signInAuthWithEmailAndPassword } from "../../utils/firebase/firebase.util"
+import { signInWithGooglePopup } from "../../utils/firebase/firebase.util"
+
 
 
 
@@ -23,7 +30,7 @@ const SignIn = () => {
     }
     const [formField, setFormField] = useState(defaultFormField)
 
-    const {setCurrentUser} = useContext(UserContext)
+    const { setCurrentUser } = useContext(UserContext)
 
 
     // const { displayName, email, password, confirmPassword } = { formField }
@@ -52,21 +59,21 @@ const SignIn = () => {
 
         try {
             const res = await signInAuthWithEmailAndPassword(email, password)
-            console.log("//////res",res);
-           setCurrentUser(res.user)
+            console.log("//////res", res);
+            // setCurrentUser(res.user)      //centralize this using onAuthchange if remove onAuthchange then uncomment this line
 
 
         }
         catch (error) {
-            if(error.code == 'auth/wrong-password'){
+            if (error.code === 'auth/wrong-password') {
 
                 alert("Invalid user or password!!")
             }
-            else  if(error.code == 'auth/user-not-found'){
+            else if (error.code === 'auth/user-not-found') {
 
                 alert("No user found for this email , please sign up first!!")
             }
-            else{
+            else {
                 alert("There is an error in  sign in of user!")
             }
 
@@ -87,26 +94,46 @@ const SignIn = () => {
 
     const { email, password } = { formField }
 
+    // ..................................................sign in using google.....................
+    // const {setCurrentUser} = useContext(UserContext)
+
+    const logGoogleUser = async () => {
+        const response = await signInWithGooglePopup()
+        const userDocRef = await createUserDocumentFromAuth(response)
+
+        // setCurrentUser(response.user)   //centralize this using onAuthchange if remove onAuthchange then uncomment this line
+
+        console.log(userDocRef);
+        console.log("..................");
+        console.log(response);
+    }
+
+
+
+
+
+
     return (
 
-        <div><h1>Sign Up using your email and password</h1>
-            <form onSubmit={onSubmitHandler}>
+        <div><h2>Sign In using your email and password</h2>
+            <div className="form-container">
+                <form onSubmit={onSubmitHandler}>
 
 
 
-                <FormInput label='Email:'
-                    type='text'
-                    required name='email'
-                    value={email}
-                    onChange={onChangeHandler} />
+                    <FormInput label='Email:'
+                        type='text'
+                        required name='email'
+                        value={email}
+                        onChange={onChangeHandler} />
 
 
 
-                <FormInput label='Password: '
-                    type='text'
-                    required name='password'
-                    value={password}
-                    onChange={onChangeHandler} />
+                    <FormInput label='Password: '
+                        type='password'
+                        required name='password'
+                        value={password}
+                        onChange={onChangeHandler} />
 
 
 
@@ -114,7 +141,7 @@ const SignIn = () => {
 
 
 
-                {/* <label>Display Name:</label>
+                    {/* <label>Display Name:</label>
                 <input type='text' required name='displayName' value={displayName} onChange={onChangeHandler} /><br /><br />
 
                 <label>Email: </label>
@@ -128,14 +155,16 @@ const SignIn = () => {
 
 
 
-                {/* <button type="submit"> Sign Up</button><br /><br /> */}
+                    {/* <button type="submit"> Sign Up</button><br /><br /> */}
+
+                    <div className="sign-in-button-container">
+                        <ButtonComponent children='Sign In' type='submit' />
+                        <ButtonComponent children='Sign In With Google' onClick={logGoogleUser} />
+                    </div>
 
 
-                <ButtonComponent children='Sign In' type='submit'/>
-
-
-
-            </form>
+                </form>
+            </div>
         </div>
 
 

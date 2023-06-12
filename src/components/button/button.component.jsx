@@ -1,8 +1,8 @@
-
+import './button.styles.css'
 
 const ButtonComponent= ({children,...otherProps})=>{
     return(
-        <button {...otherProps}>{children}</button>
+        <button {...otherProps} className='button-container'>{children}</button>
     )
 
 

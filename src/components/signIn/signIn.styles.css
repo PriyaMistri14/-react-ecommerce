@@ -1,0 +1,7 @@
+.sign-in-button-container{
+   display: flex;
+   flex-direction: row;
+   /* padding-right: 300px; */
+   justify-content: space-between;
+
+}
