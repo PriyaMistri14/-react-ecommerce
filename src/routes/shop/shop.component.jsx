@@ -1,35 +1,21 @@
-import { useContext } from "react";
-
-
-import { ProductContext } from "../../contexts/product.context";
-
-import ProductCard from "../../components/product-card/product-card.component";
+ import { Route, Routes } from 'react-router-dom'
+ import { useParams } from 'react-router-dom'
+import ShopCategory from '../shop-category/shop-category.component'
+ import ShopCategoriesPreview from '../shop-categories-preview/shop-categories-preview'
 
 import './shop.styles.css'
 
-
+// ................................replacing this file with shop category preview to implement nested route......
 const Shop = () => {
-    const { products } = useContext(ProductContext)
-    console.log("vnvgdfjgdf", products);
+        return (  
+                <Routes>
+                    <Route index element={<ShopCategoriesPreview /> }/>
+                    <Route path=':category' element={<ShopCategory />} />
+                </Routes>
 
-
-    return (
-        <div className="products-container">
-            {
-                products.map((product) =>
-                    
-                        
-                        <ProductCard product={product} />
-
-                )
-            }
-        </div>
-    )
-
+            )
 
 
 }
-
-
 export default Shop
 

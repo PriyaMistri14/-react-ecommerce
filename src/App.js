@@ -15,6 +15,10 @@ import Auth from './routes/sign_in/sign_in.component';
 import Shop from './routes/shop/shop.component';
 
 
+import Chechout from './routes/chechout/checkout.component';
+
+
+
 
 
 
@@ -28,8 +32,9 @@ const App = () => {
     <Routes>
       <Route path='/' element={<Navigation />}>
         <Route index element={<Home/>}/>
-        <Route path='shop' element={<Shop/>} />
+        <Route path='shop/*' element={<Shop/>} />
         <Route path='sign_in' element={<Auth />} />
+        <Route path='checkout' element={<Chechout />} />
       </Route>
 
 
