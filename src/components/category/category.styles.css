@@ -9,7 +9,7 @@
 
 }
 
-.category-body-container{
+.category-body-containerr{
   opacity: 0.9;
   height: 90px;
   padding: 0 25px;
@@ -23,6 +23,6 @@
 
 }
 
-.category-body-container:hover{
+.category-body-containerr:hover{
   transform: scale(1.05);
 }

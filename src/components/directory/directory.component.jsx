@@ -9,12 +9,12 @@ const Directory = (props)=>{
 
 return (
 
-    <div className='categories-container'>
+    <div className='directory-item-container'>
 
       {categories.map((category) => (
 
 
-        <div className='category-container'>
+        <div className='directory-container'>
           <Category category={category} />
 
         </div>

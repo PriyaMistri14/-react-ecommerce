@@ -8,32 +8,35 @@ import { CartContext } from '../../contexts/cart.context'
 const CheckoutItem = ({ item }) => {
     const { name, imageUrl, price, quantity } = item
 
- const { clearItemFromCart, addItemToCart, cartItems, setCartItems } = useContext(CartContext)
+ const { clearItemFromCart, addItemToCart,removeItemFromCart, cartItems } = useContext(CartContext)
 
  const clearItemFromCartHandler = ()=> clearItemFromCart(item)
  const addProductToCartHandler = () =>addItemToCart(item)
+ const removeItemFromCartHandler = ()=> removeItemFromCart(item)
 
 // ........................remove item.....................
-const removeItemFromCart = (item) => {
-    const { id } = item
-    var newCartItem = []
 
-    cartItems.map((it) => {
-        if (id !== it.id) {
-            newCartItem.push(it)
+// this fun is now centralized on context....................
+// const removeItemFromCart = (item) => {
+//     const { id } = item
+//     var newCartItem = []
 
-        }
-        else if (id === it.id && it.quantity != 0) {
-            it.quantity = it.quantity - 1
-            if (it.quantity != 0) {
-                newCartItem.push(it)
-            }
-        }
-    })
+//     cartItems.map((it) => {
+//         if (id !== it.id) {
+//             newCartItem.push(it)
 
-    console.log(".............................///////////////////....................", newCartItem);
-    setCartItems(newCartItem)
-}
+//         }
+//         else if (id === it.id && it.quantity != 0) {
+//             it.quantity = it.quantity - 1
+//             if (it.quantity != 0) {
+//                 newCartItem.push(it)
+//             }
+//         }
+//     })
+
+//     console.log(".............................///////////////////....................", newCartItem);
+//     setCartItems(newCartItem)
+// }
 
 
 
@@ -50,7 +53,7 @@ const removeItemFromCart = (item) => {
 
             <span className='checkout-name'>{name}</span>
             <span className='checkout-quantity'>
-                <div className='arrow' onClick={()=>{removeItemFromCart(item)}}>
+                <div className='arrow' onClick={removeItemFromCartHandler}>
                     &#10094;
 
                 </div>
