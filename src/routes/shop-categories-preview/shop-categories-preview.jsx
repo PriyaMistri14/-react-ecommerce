@@ -7,9 +7,15 @@ import CategoryPreview from "../../components/category-preview/category-preview.
 
 import './shop-categories-preview.styles.css'
 
+import { useSelector } from "react-redux";
+
+import { selectCategoryMap } from "../../store/category/category.selector";
+
 
 const ShopCategoriesPreview = () => {
-    const { categoryMap } = useContext(ProductContext)
+    // const { categoryMap } = useContext(ProductContext)  // this line is commented to use redux
+     const categoryMap = useSelector(selectCategoryMap)
+    
     console.log("vnvgdfjgdf", categoryMap);
 
 

@@ -19,6 +19,11 @@ import CardDrpdown from "../../components/card-dropdown/card-dropdown.component"
 
 import { CartContext } from "../../contexts/cart.context";
 
+import { useSelector } from "react-redux";
+
+
+import { selectCurrentUser } from "../../store/user/user.selector";
+
 
 
 
@@ -26,7 +31,11 @@ import { CartContext } from "../../contexts/cart.context";
 
 const Navigation = () => {
 
-    const { currentUser, setCurrentUser } = useContext(UserContext)
+    // const currentUser = useSelector((state)=> state.user.currentUser) //  this is before centralize
+
+    const currentUser = useSelector(selectCurrentUser)
+
+    // const { currentUser, setCurrentUser } = useContext(UserContext)  // this line is comment to use redux, to use context just uncomment it
     console.log("current user:", currentUser);
 
     const {isCartOpen, setIsCartOpen} = useContext(CartContext)

@@ -5,9 +5,14 @@ import { ProductContext } from "../../contexts/product.context"
 
 import './shop-category.styles.css'
 
+import { useSelector } from "react-redux"
+
+import { selectCategoryMap } from "../../store/category/category.selector"
 
 const ShopCategory = ()=>{
-    const {categoryMap} = useContext(ProductContext) 
+    // const {categoryMap} = useContext(ProductContext)  // commented to use redux 
+    const categoryMap = useSelector(selectCategoryMap)
+   
     const {category} = useParams()
 
     const [products, setProducts] = useState(categoryMap[category])
