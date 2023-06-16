@@ -19,6 +19,8 @@ export const selectCategoryMap = createSelector(
 
 
 
+
+
 //  this will called all the time even if value of category is same , and calculate again value of category
 
 // export const selectCategoryMap = (state)=>{ 
@@ -26,3 +28,7 @@ export const selectCategoryMap = createSelector(
 //     return state.category.categoryMap
 // }
 
+
+
+
+export const selectCategoryIsLoading = createSelector([selectCategoryReducer],(categoryMap)=> categoryMap.isLoading)

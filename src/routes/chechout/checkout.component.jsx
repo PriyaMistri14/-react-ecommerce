@@ -7,12 +7,18 @@ import { useContext } from 'react'
 
 import CheckoutItem from '../../components/checkout-item/checkout-item.component'
 
+// .............for redux........
+
+import { useSelector } from 'react-redux'
+import { selectCartItems, selectCartTotal } from '../../store/cart/cart.selector'
+
 
 
 const Chechout = () => {
 
-    const { cartItems, addItemToCart, cartCount, setCartCount, setCartItems, total } = useContext(CartContext)
-
+    //  const { cartItems, addItemToCart, cartCount, setCartCount, setCartItems, total } = useContext(CartContext)   // this line is commented to use redux(reducer)
+ const cartItems = useSelector(selectCartItems)
+ const total = useSelector(selectCartTotal)
 
 
     // console.log("////////////////////////////////", cartItems);

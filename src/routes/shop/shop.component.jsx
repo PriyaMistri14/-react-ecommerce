@@ -13,21 +13,38 @@ import { useDispatch } from 'react-redux'
 
 import { useEffect } from 'react'
 
+import { fetchCategoryAsync } from '../../store/category/category.action'
+
+
+
 
 // ................................replacing this file with shop category preview to implement nested route......
 const Shop = () => {
 
     const dispatch = useDispatch()
 
-    useEffect(()=>{
-        const getCategory = async ()=>{
-            const categoryMap = await getCategoriesAndDocuments()
-            console.log("./.././/.../././/.//./.././..categoryMap", categoryMap);
-            dispatch(setcategoryMap(categoryMap))
-         }
+// this is commented to used thunk and all this task is done inside actions in category action in redux
+
+    // useEffect(()=>{
+    //     const getCategory = async ()=>{
+    //         const categoryMap = await getCategoriesAndDocuments()
+    //         console.log("./.././/.../././/.//./.././..categoryMap", categoryMap);
+    //         dispatch(setcategoryMap(categoryMap))
+    //      }
      
-         getCategory()
-     },[])
+    //      getCategory()
+    //  },[])
+
+
+// with thunk....
+
+
+    useEffect(()=>{
+       
+            dispatch(fetchCategoryAsync)
+         },
+     
+        [])
      
 
 

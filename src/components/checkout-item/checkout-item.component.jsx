@@ -4,15 +4,28 @@ import { useContext } from 'react'
 
 import { CartContext } from '../../contexts/cart.context'
 
+//.......................redux............
+
+import { useDispatch, useSelector} from 'react-redux'
+
+import { addItemToCart, clearItemFromCart,removeItemFromCart } from '../../store/cart/cart.action'
+
+import { selectCartItems } from '../../store/cart/cart.selector'
+
+
 
 const CheckoutItem = ({ item }) => {
     const { name, imageUrl, price, quantity } = item
 
- const { clearItemFromCart, addItemToCart,removeItemFromCart, cartItems } = useContext(CartContext)
+//  const { clearItemFromCart, addItemToCart,removeItemFromCart, cartItems } = useContext(CartContext)  // this line is commented for redux
 
- const clearItemFromCartHandler = ()=> clearItemFromCart(item)
- const addProductToCartHandler = () =>addItemToCart(item)
- const removeItemFromCartHandler = ()=> removeItemFromCart(item)
+const cartItems = useSelector(selectCartItems)
+
+const dispatch = useDispatch()
+
+ const clearItemFromCartHandler = ()=> dispatch(clearItemFromCart(cartItems,item))
+ const addProductToCartHandler = () =>dispatch(addItemToCart(cartItems,item))
+ const removeItemFromCartHandler = ()=> dispatch(removeItemFromCart(cartItems,item))
 
 // ........................remove item.....................
 

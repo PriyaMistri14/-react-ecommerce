@@ -9,9 +9,22 @@ import { useSelector } from "react-redux"
 
 import { selectCategoryMap } from "../../store/category/category.selector"
 
+// for using thunk to display spinner
+
+import { selectCategoryIsLoading } from "../../store/category/category.selector"
+
+import Spinner from "../../components/spinner/spinner.component"
+
+
+
+
 const ShopCategory = ()=>{
     // const {categoryMap} = useContext(ProductContext)  // commented to use redux 
     const categoryMap = useSelector(selectCategoryMap)
+
+    const isLoading = useSelector(selectCategoryIsLoading)  
+
+    console.log("isloadingggggggggggggggggg", isLoading);
    
     const {category} = useParams()
 
@@ -27,6 +40,7 @@ const ShopCategory = ()=>{
     return(
         <div className="shop-category-preview">
         {
+         isLoading ? <Spinner /> :
           products &&  products.map((product)=><ProductCard  product={product}/>)
         }
         </div>

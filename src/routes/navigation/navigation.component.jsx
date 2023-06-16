@@ -25,6 +25,9 @@ import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../store/user/user.selector";
 
 
+import { selectIsCartOpen } from "../../store/cart/cart.selector";
+
+
 
 
 // import { Link } from "react-router-dom";
@@ -38,8 +41,10 @@ const Navigation = () => {
     // const { currentUser, setCurrentUser } = useContext(UserContext)  // this line is comment to use redux, to use context just uncomment it
     console.log("current user:", currentUser);
 
-    const {isCartOpen, setIsCartOpen} = useContext(CartContext)
+    // const {isCartOpen, setIsCartOpen} = useContext(CartContext)  //  this line is comment to use redux, to use context just uncomment it
  
+const isCartOpen = useSelector(selectIsCartOpen)
+
 
     const onSignOutHAndler = async () => {
         const res = await signOutUser()

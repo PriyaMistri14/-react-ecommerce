@@ -12,13 +12,20 @@ import { CartContext } from '../../contexts/cart.context'
 
 import { useNavigate } from 'react-router-dom'
 
+//..............for redux..........
+
+import { useSelector } from 'react-redux'
+
+import { selectCartItems } from '../../store/cart/cart.selector'
 
 
 
 
 const CardDrpdown = () => {
 
-    const { cartItems } = useContext(CartContext)
+    // const { cartItems } = useContext(CartContext)  // this line is commented to use redux , reducer
+     const cartItems = useSelector(selectCartItems)
+    
     console.log("cart items", cartItems);
 
 

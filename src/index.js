@@ -14,6 +14,8 @@ import { Provider } from 'react-redux';
 
 import { store } from './store/store';
 
+import { PersistGate } from 'redux-persist/integration/react';
+import {persistor} from '../src/store/store'
 
 
 
@@ -24,15 +26,16 @@ root.render(
 
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
+      <PersistGate persistor={persistor}>
+      <BrowserRouter>   
         {/* <UserProvider> */}   
           {/* <ProductProvider> */}
-            <CartProvide>
+            {/* <CartProvide> */}
               <App />
-            </CartProvide>
+            {/* </CartProvide> */}
           {/* </ProductProvider> */}
         {/* </UserProvider> */}
-      </BrowserRouter>
+      </BrowserRouter></PersistGate>
       </Provider>
   </React.StrictMode>
 );
