@@ -27,12 +27,18 @@ import { selectCurrentUser } from "../../store/user/user.selector";
 
 import { selectIsCartOpen } from "../../store/cart/cart.selector";
 
+//.. for saga
+import { useDispatch } from "react-redux";
+
+import { signOutStart } from "../../store/user/user.action";
 
 
 
 // import { Link } from "react-router-dom";
 
 const Navigation = () => {
+
+    const dispatch = useDispatch()
 
     // const currentUser = useSelector((state)=> state.user.currentUser) //  this is before centralize
 
@@ -45,12 +51,15 @@ const Navigation = () => {
  
 const isCartOpen = useSelector(selectIsCartOpen)
 
+// this whole fun is commented to use saga in bellow fun
+    // const onSignOutHAndler = async () => {
+    //     const res = await signOutUser()
+    //     console.log("after sign out", res);
+    //     // setCurrentUser(null)       //centralize this using onAuthchange if remove onAuthchange then uncomment this line 
+    // }
 
-    const onSignOutHAndler = async () => {
-        const res = await signOutUser()
-        console.log("after sign out", res);
-        // setCurrentUser(null)       //centralize this using onAuthchange if remove onAuthchange then uncomment this line 
-    }
+const onSignOutHAndler = ()=> dispatch(signOutStart())
+
 
 
     return (

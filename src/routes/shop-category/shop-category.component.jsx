@@ -13,7 +13,7 @@ import { selectCategoryMap } from "../../store/category/category.selector"
 
 import { selectCategoryIsLoading } from "../../store/category/category.selector"
 
-import Spinner from "../../components/spinner/spinner.component"
+// import Spinner from "../../components/spinner/spinner.component"  // not used all its html and css is placed here
 
 
 
@@ -40,7 +40,7 @@ const ShopCategory = ()=>{
     return(
         <div className="shop-category-preview">
         {
-         isLoading ? <Spinner /> :
+         isLoading ? <span className="loader">Loading....</span>:
           products &&  products.map((product)=><ProductCard  product={product}/>)
         }
         </div>

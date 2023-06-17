@@ -30,19 +30,22 @@ export const fetchCategoryFailed = (error) => {
 }
 
 
-export const fetchCategoryAsync = async (dispatch) => {
-
-    dispatch(fetchCategotyStart())
-
-    try {
-        const categoryMap = await getCategoriesAndDocuments()
-        dispatch(fetchCategorySuccess(categoryMap))
-
-    } catch (error) {
-
-        dispatch(fetchCategoryFailed(error))
-
-    }
+// to use saga , we dont need action here , it is in category saga 
 
 
-}
+// export const fetchCategoryAsync = async (dispatch) => {
+
+//     dispatch(fetchCategotyStart())
+
+//     try {
+//         const categoryMap = await getCategoriesAndDocuments()
+//         dispatch(fetchCategorySuccess(categoryMap))
+
+//     } catch (error) {
+
+//         dispatch(fetchCategoryFailed(error))
+
+//     }
+
+
+// }

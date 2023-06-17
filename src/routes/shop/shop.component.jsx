@@ -13,7 +13,9 @@ import { useDispatch } from 'react-redux'
 
 import { useEffect } from 'react'
 
-import { fetchCategoryAsync } from '../../store/category/category.action'
+// import { fetchCategoryAsync } from '../../store/category/category.action' //  for use saga this line is commented
+
+import { fetchCategotyStart } from '../../store/category/category.action'
 
 
 
@@ -36,15 +38,27 @@ const Shop = () => {
     //  },[])
 
 
-// with thunk....
+// with thunk....  commented to use saga
 
 
-    useEffect(()=>{
+    // useEffect(()=>{
        
-            dispatch(fetchCategoryAsync)
-         },
+    //         dispatch(fetchCategoryAsync)
+    //      },
      
-        [])
+    //     [])
+
+
+
+// with saga
+
+
+useEffect(()=>{
+       
+    dispatch(fetchCategotyStart())
+ },
+
+[])
      
 
 

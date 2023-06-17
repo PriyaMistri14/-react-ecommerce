@@ -14,6 +14,10 @@ import { useContext } from "react"
 
 
 
+import { useDispatch } from "react-redux"
+ import { signUpStart } from "../../store/user/user.action"
+
+
 const SignUp = () => {
     const defaultFormField = {
         displayName: '',
@@ -27,7 +31,7 @@ const SignUp = () => {
 
     // const { displayName, email, password, confirmPassword } = { formField }
 
-
+  const dispatch = useDispatch()
     const onChangeHandler = (event) => {
         const { name, value } = event.target
         setFormField({ ...formField, [name]: value })
@@ -54,11 +58,14 @@ const SignUp = () => {
         }
         try {
 
-            const response = await createUserAuthWithEmailAndPassword(email, password)
+            // const response = await createUserAuthWithEmailAndPassword(email, password)  // this lines are commented to use saga
 
-            const res = await createUserDocumentFromAuth(response, { displayName })
+            // const res = await createUserDocumentFromAuth(response, { displayName })
             resetFormField()
-            console.log(".............................................current user", response.user, response);
+           
+            dispatch(signUpStart(email, password, displayName))
+            
+            
             // setCurrentUser(response.user)   //centralize this using onAuthchange if remove onAuthchange then uncomment this line
 
 

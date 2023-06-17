@@ -1,7 +1,7 @@
 
 import { useState } from "react"
 
-import {  createUserDocumentFromAuth, signInAuthWithEmailAndPassword } from "../../utils/firebase/firebase.util"
+import { createUserDocumentFromAuth, signInAuthWithEmailAndPassword } from "../../utils/firebase/firebase.util"
 
 
 import FormInput from "../formInput/formInput.component"
@@ -17,8 +17,8 @@ import './signIn.styles.css'
 //  import { signInAuthWithEmailAndPassword } from "../../utils/firebase/firebase.util"
 import { signInWithGooglePopup } from "../../utils/firebase/firebase.util"
 
-
-
+import { useDispatch } from "react-redux"
+import { googleSignInStart, emailSignInStart } from "../../store/user/user.action"
 
 
 const SignIn = () => {
@@ -58,10 +58,10 @@ const SignIn = () => {
 
 
         try {
-            const res = await signInAuthWithEmailAndPassword(email, password)
-            console.log("//////res", res);
+            // const res = await signInAuthWithEmailAndPassword(email, password) // for use of saga
+           
             // setCurrentUser(res.user)      //centralize this using onAuthchange if remove onAuthchange then uncomment this line
-
+    dispatch(emailSignInStart(email, password))
 
         }
         catch (error) {
@@ -97,15 +97,21 @@ const SignIn = () => {
     // ..................................................sign in using google.....................
     // const {setCurrentUser} = useContext(UserContext)
 
-    const logGoogleUser = async () => {
-        const response = await signInWithGooglePopup()
-        const userDocRef = await createUserDocumentFromAuth(response)
+
+    const dispatch = useDispatch()
+
+    const logGoogleUser = () => {
+        // const response = await signInWithGooglePopup()     //  this 2 lines are commented to use saga
+        // const userDocRef = await createUserDocumentFromAuth(response)
+
+        // use saga
+
+        dispatch(googleSignInStart())
+
 
         // setCurrentUser(response.user)   //centralize this using onAuthchange if remove onAuthchange then uncomment this line
 
-        console.log(userDocRef);
-        console.log("..................");
-        console.log(response);
+
     }
 
 

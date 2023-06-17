@@ -54,9 +54,10 @@ export const db = getFirestore();
 
 export const createUserDocumentFromAuth = async (userAuth,additionalInfo={}) => {
     if (!userAuth) return
-    console.log(userAuth.user.uid);
+    // console.log(userAuth.user.uid);
     // additionalInfo={}
-    const userDocRef = doc(db, 'users', userAuth.user.uid)
+    // const userDocRef = doc(db, 'users', userAuth.user.uid)
+    const userDocRef = doc(db, 'users', userAuth.uid)
     const userSnapshot = await getDoc(userDocRef)
     console.log("/////////////");
     console.log(userDocRef);
@@ -64,7 +65,8 @@ export const createUserDocumentFromAuth = async (userAuth,additionalInfo={}) => 
 
     if (!userSnapshot.exists())
     {
-        const {displayName, email} = userAuth.user
+        const {displayName, email} = userAuth
+        
         const createdAt = new Date()
         await setDoc(userDocRef,{
             displayName,
@@ -73,7 +75,8 @@ export const createUserDocumentFromAuth = async (userAuth,additionalInfo={}) => 
             ...additionalInfo
         })
     }
-    return userDocRef
+    // return userDocRef   // to use in  saga now we return userSnapshot
+    return userSnapshot
 
 }
 
@@ -140,3 +143,20 @@ export const getCategoriesAndDocuments = async()=>{
     return categoryMap
 }
 
+
+// this is for removing  onAuthStateChangedLister in app.js  to use saga check app.js
+
+export const getCurrentUser = ()=>{
+    return new Promise((resolve, reject)=>{
+        const unsubscribe = onAuthStateChanged(
+            auth, 
+            (userAuth)=>{
+                unsubscribe()
+                console.log("@@@@@@@@in get  current user", userAuth);
+                resolve(userAuth)
+            }, 
+            reject
+        )
+
+    })
+}
