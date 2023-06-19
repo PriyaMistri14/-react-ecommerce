@@ -15,7 +15,12 @@ import { Provider } from 'react-redux';
 import { store } from './store/store';
 
 import { PersistGate } from 'redux-persist/integration/react';
-import {persistor} from '../src/store/store'
+import { persistor } from '../src/store/store'
+
+
+// for stripe
+import { Elements } from '@stripe/react-stripe-js';
+import { stripePromise } from './utils/stripe/stripe.util';
 
 
 
@@ -27,16 +32,18 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate persistor={persistor}>
-      <BrowserRouter>   
-        {/* <UserProvider> */}   
+        <BrowserRouter>
+          {/* <UserProvider> */}
           {/* <ProductProvider> */}
-            {/* <CartProvide> */}
-              <App />
-            {/* </CartProvide> */}
+          {/* <CartProvide> */}
+          <Elements stripe={stripePromise}>
+            <App />
+          </Elements>
+          {/* </CartProvide> */}
           {/* </ProductProvider> */}
-        {/* </UserProvider> */}
-      </BrowserRouter></PersistGate>
-      </Provider>
+          {/* </UserProvider> */}
+        </BrowserRouter></PersistGate>
+    </Provider>
   </React.StrictMode>
 );
 

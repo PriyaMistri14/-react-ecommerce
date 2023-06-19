@@ -13,6 +13,10 @@ import { useSelector } from 'react-redux'
 import { selectCartItems, selectCartTotal } from '../../store/cart/cart.selector'
 
 
+// for stripe
+import PaymentForm from '../../components/payment-form/payment-form.component'
+
+
 
 const Chechout = () => {
 
@@ -88,6 +92,7 @@ const Chechout = () => {
 
             }
             <span className='total'>Total: ${total} </span>
+            <PaymentForm />
         </div>
 
         // <div>
